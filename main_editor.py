@@ -50,7 +50,7 @@ class Input:
 
     @staticmethod
     def get_float_input():
-        console = Console()
+	console = Console()
         return float(console.input(" [bright_black]_______________________________________________[/bright_black]" + "[bright_black]\n  __ [/bright_black]" + "[red1]" + MySexyVariables.curdir + " [/red1]" + "[bright_black]\n (____ [/bright_black]" + "[purple]" + MySexyVariables.user + "[/purple]" + "[bright_black] _____: [/bright_black]"))
 
 class calls:
@@ -256,6 +256,7 @@ class Main:
 			time.sleep(2)
 			os.system('clear')
 			main_logo.logo()
+			calls_list = ["cut video", "cut audio", "adjust volume", "audio overlay", "extract audio", "stitch audio", "stitch video", "exit"]
 			calls.call_list()
 			while True:
 				command = Input.get_string_input()
