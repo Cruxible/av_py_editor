@@ -34,8 +34,17 @@ class MySexyVariables:
 	vid_list = os.listdir(video_dir)
 	audio_list = os.listdir(audio_dir)
 	desktop_list = os.listdir(desktop_dir)
-	#not used yet.
 	pics_list = os.listdir(pics_dir)
+	calls_list = [
+				"cut video",
+				"cut audio",
+				"adjust volume",
+				"audio overlay",
+				"extract audio",
+				"stitch audio",
+				"stitch video",
+				"exit"
+				]
 
 class Input:
     @staticmethod
@@ -50,15 +59,14 @@ class Input:
 
     @staticmethod
     def get_float_input():
-	console = Console()
+        console = Console()
         return float(console.input(" [bright_black]_______________________________________________[/bright_black]" + "[bright_black]\n  __ [/bright_black]" + "[red1]" + MySexyVariables.curdir + " [/red1]" + "[bright_black]\n (____ [/bright_black]" + "[purple]" + MySexyVariables.user + "[/purple]" + "[bright_black] _____: [/bright_black]"))
 
 class calls:
 	@staticmethod
 	def call_list():
-		calls_list = ["cut video", "cut audio", "adjust volume", "audio overlay", "extract audio", "stitch audio", "stitch video", "exit"]
 		tree = Tree("[bright_black]" + " calls", guide_style="purple")
-		for i in calls_list:
+		for i in MySexyVariables.calls_list:
 			tree.add("[bright_black]" + str(i))
 		print(" ", tree)
 
@@ -66,33 +74,33 @@ class list_dirs:
     @staticmethod
     def vid_list():
         os.chdir(MySexyVariables.video_dir)
-        tree = Tree("[red1]" + MySexyVariables.video_dir, guide_style="blue")
+        tree = Tree("[bright_black]" + MySexyVariables.video_dir, guide_style="purple")
         for i in MySexyVariables.vid_list:
-            tree.add("[cyan1]" + str(i))
+            tree.add("[bright_black]" + str(i))
         print(" ", tree)
 
     @staticmethod
     def music_list():
         os.chdir(MySexyVariables.audio_dir)
-        tree = Tree("[red1]" + MySexyVariables.audio_dir, guide_style="blue")
+        tree = Tree("[bright_black]" + MySexyVariables.audio_dir, guide_style="purple")
         for i in MySexyVariables.audio_list:
-            tree.add("[cyan1]" + str(i))
+            tree.add("[bright_black]" + str(i))
         print(" ", tree)
 
     @staticmethod
     def desktop_list():
         os.chdir(MySexyVariables.desktop_dir)
-        tree = Tree("[red1]" + MySexyVariables.desktop_dir, guide_style="blue")
+        tree = Tree("[bright_black]" + MySexyVariables.desktop_dir, guide_style="purple")
         for i in MySexyVariables.desktop_list:
-            tree.add("[cyan1]" + str(i))
+            tree.add("[bright_black]" + str(i))
         print(" ", tree)
 
     @staticmethod
     def picture_list():
         os.chdir(MySexyVariables.pics_dir)
-        tree = Tree("[red1]" + MySexyVariables.pics_dir, guide_style="blue")
+        tree = Tree("[bright_black]" + MySexyVariables.pics_dir, guide_style="purple")
         for i in MySexyVariables.pics_list:
-            tree.add("[cyan1]" + str(i))
+            tree.add("[bright_black]" + str(i))
         print(" ", tree)
 
 class main_functions:
@@ -114,12 +122,12 @@ class main_functions:
     			final = video.set_audio(audio)
     			print(HonerableMentions.save_vid_where)
     			directory = Input.get_string_input()
-    			if directory == 'desktop':
+    			if directory == 'Desktop':
     				os.chdir(MySexyVariables.desktop_dir)
     				print(HonerableMentions.new_filename)
     				new_file = Input.get_string_input()
     				final.write_videofile(f"{new_file}")
-    			if directory == 'videos':
+    			if directory == 'Videos':
     				os.chdir(MySexyVariables.video_dir)
     				print(HonerableMentions.new_filename)
     				new_file = Input.get_string_input()
@@ -134,8 +142,8 @@ class main_functions:
     def cut_mp3():
     	list_dirs.music_list()
     	print(HonerableMentions.mp3)
-    	input_file_path = Input.get_string_input()
-    	if input_file_path in MySexyVariables.audio_list:
+    	filename = Input.get_string_input()
+    	if filename in MySexyVariables.audio_list:
     		print(HonerableMentions.starting_time)
     		start_time = Input.get_integer_input()
     		print(HonerableMentions.ending_time)
@@ -144,17 +152,17 @@ class main_functions:
     		output_file_path = Input.get_string_input()
     		print(HonerableMentions.save_audio_where)
     		directory = Input.get_string_input()
-    		audio = AudioFileClip(input_file_path)
+    		audio = AudioFileClip(filename)
     		new_audio = audio.subclip(start_time, end_time)
-    		if directory == 'desktop':
+    		if directory == 'Desktop':
     			os.chdir(MySexyVariables.desktop_dir)
     			new_audio.write_audiofile(output_file_path)
-    		if directory == 'music':
+    		if directory == 'Music':
     			os.chdir(MySexyVariables.audio_dir)
     			new_audio.write_audiofile(output_file_path)
     		if "exit" == directory:
     			sys.exit()
-    	if "exit" == first_file:
+    	if "exit" == filename:
     		sys.exit()
 
     def volume_adjust():
@@ -166,24 +174,25 @@ class main_functions:
     		vol_num = Input.get_float_input()
     		print(' Enter the fade duration?')
     		fade_duration = Input.get_float_input()
-    		print(HonerableMentions.new_filename)
-    		new_file = Input.get_string_input()
     		clip = VideoFileClip(filename)
     		clip = clip.volumex(vol_num)
     		clip = clip.audio_fadein(fade_duration)
     		clip = clip.audio_fadeout(fade_duration)
-    		print(HonerableMentions.save_video_where)
+    		print(HonerableMentions.new_filename)
+    		new_file = Input.get_string_input()
+    		print(HonerableMentions.save_vid_where)
     		directory = Input.get_string_input()
-    		if directory == 'desktop':
+    		if directory == 'Desktop':
     			os.chdir(MySexyVariables.desktop_dir)
     			clip.write_videofile(new_file)
-    		if directory == 'videos':
+    		if directory == 'Videos':
     			os.chdir(MySexyVariables.video_dir)
     			clip.write_videofile(new_file)
     		if "exit" == directory:
     			sys.exit()
     	if "exit" == filename:
     		sys.exit()
+    
     def cut_vid():
     	list_dirs.vid_list()
     	print(HonerableMentions.mp4)
@@ -196,12 +205,21 @@ class main_functions:
     		print(HonerableMentions.new_filename)
     		new_vid_name = Input.get_string_input()
     		clip = VideoFileClip(vid_name).subclip(start_time, end_time)
-    		clip.write_videofile(new_vid_name)
+    		print(HonerableMentions.save_vid_where)
+    		directory = Input.get_string_input()
+    		if directory == 'Desktop':
+    			os.chdir(MySexyVariables.desktop_dir)
+    			clip.write_videofile(new_vid_name)
+    		if directory == 'Videos':
+    			os.chdir(MySexyVariables.video_dir)
+    			clip.write_videofile(new_vid_name)
+    		if "exit" == directory:
+    			sys.exit()
     	if "exit" == vid_name:
     		sys.exit()
 
     def ext_audio():
-    	list_dirs.music_list()
+    	list_dirs.vid_list()
     	print(HonerableMentions.mp4)
     	filename = Input.get_string_input()
     	if filename in MySexyVariables.vid_list:
@@ -209,9 +227,19 @@ class main_functions:
     		new_filename = Input.get_string_input()
     		video = VideoFileClip(filename)
     		audio = video.audio
-    		audio.write_audiofile(new_filename)
+    		print(HonerableMentions.save_audio_where)
+    		directory = Input.get_string_input()
+    		if directory == 'Desktop':
+    			os.chdir(MySexyVariables.desktop_dir)
+    			audio.write_audiofile(new_filename)
+    		if directory == 'Music':
+    			os.chdir(MySexyVariables.audio_dir)
+    			audio.write_audiofile(new_filename)
+    		if "exit" == directory:
+    			sys.exit()
     	if "exit" == filename:
     		sys.exit()
+    
     def concatenate_mp3():
     	list_dirs.music_list()
     	print(HonerableMentions.mp3)
@@ -224,11 +252,21 @@ class main_functions:
     			final_audio = concatenate_audioclips([audio1, audio2])
     			print(HonerableMentions.new_filename)
     			new_file = Input.get_string_input()
-    			final_audio.write_audiofile(new_file)
+    			print(HonerableMentions.save_audio_where)
+    			directory = Input.get_string_input()
+    			if directory == 'Desktop':
+    				os.chdir(MySexyVariables.desktop_dir)
+    				final_audio.write_audiofile(new_file)
+    			if directory == 'Music':
+    				os.chdir(MySexyVariables.audio_dir)
+    				final_audio.write_audiofile(new_file)
+    			if "exit" == directory:
+    				sys.exit()
     		if "exit" == second_file:
     			sys.exit()
     	if "exit" == first_file:
     		sys.exit()
+    
     def concatenate_videos():
     	list_dirs.vid_list()
     	print(HonerableMentions.mp4)
@@ -242,55 +280,80 @@ class main_functions:
     			final_video = concatenate_videoclips([video1, video2])
     			print(HonerableMentions.new_filename)
     			new_file = Input.get_string_input()
-    			final_video.write_videofile(new_file)
+    			print(HonerableMentions.save_vid_where)
+    			directory = Input.get_string_input()
+    			if directory == 'Desktop':
+    				os.chdir(MySexyVariables.desktop_dir)
+    				final_video.write_videofile(new_file)
+    			if directory == 'Videos':
+    				os.chdir(MySexyVariables.video_dir)
+    				final_video.write_videofile(new_file)
+    			if "exit" == directory:
+    				sys.exit()
     		if "exit" == second_file:
     			sys.exit()
-    		if "exit" == first_file:
-    			sys.exit()
+    	if "exit" == first_file:
+    		sys.exit()
 
 class Main:
 	def main():
 		if platform.system() == 'Linux':
-			print(f" System: {platform.system()}\n Node Name: {platform.node()}\n Release: {platform.release()}")
-			print(f" Version: {platform.version()}\n Machine: {platform.machine()}\n Python version: {platform.python_version()}")
 			time.sleep(2)
 			os.system('clear')
 			main_logo.logo()
-			calls_list = ["cut video", "cut audio", "adjust volume", "audio overlay", "extract audio", "stitch audio", "stitch video", "exit"]
 			calls.call_list()
 			while True:
 				command = Input.get_string_input()
-				if command == calls_list[0]:
+				if command == MySexyVariables.calls_list[0]:
 					main_functions.cut_vid()
 					main_logo.logo()
-				if command == calls_list[1]:
+					os.system('clear')
+					Main.main()
+				if command == MySexyVariables.calls_list[1]:
 					main_functions.cut_mp3()
 					main_logo.logo()
-				if command == calls_list[2]:
+					os.system('clear')
+					Main.main()
+				if command == MySexyVariables.calls_list[2]:
 					main_functions.volume_adjust()
-				if command == calls_list[3]:
+					main_logo.logo()
+					os.system('clear')
+					Main.main()
+				if command == MySexyVariables.calls_list[3]:
 					main_functions.over_lay()
 					main_logo.logo()
-				if command == calls_list[4]:
+					os.system('clear')
+					Main.main()
+				if command == MySexyVariables.calls_list[4]:
 					main_functions.ext_audio()
 					main_logo.logo()
-				if command == calls_list[5]:
+					os.system('clear')
+					Main.main()
+				if command == MySexyVariables.calls_list[5]:
 					main_functions.concatenate_mp3()
 					main_logo.logo()
-				if command == calls_list[6]:
+					os.system('clear')
+					Main.main()
+				if command == MySexyVariables.calls_list[6]:
 					main_functions.concatenate_videos()
 					main_logo.logo()
-				if command == calls_list[7]:
+					os.system('clear')
+					Main.main()
+				if command == MySexyVariables.calls_list[7]:
 					sys.exit()
 				if command == 'list':
 					list_dirs.vid_list()
 					list_dirs.music_list()
 					list_dirs.desktop_list()
-					list_dirs.picture_list()	
+					list_dirs.picture_list()
+					os.system('clear')
+					Main.main()	
 				else:
 					continue
 		else:
 			print(' Your Mom don\'t use Linux Bruh!')
 
 if __name__ == '__main__':
+	print(f" System: {platform.system()}\n Node Name: {platform.node()}\n Release: {platform.release()}")
+	print(f" Version: {platform.version()}\n Machine: {platform.machine()}\n Python version: {platform.python_version()}")
 	Main.main()
