@@ -167,7 +167,6 @@ class main_functions:
 				audio = AudioFileClip(f"{audio_file}")
 				print(HonerableMentions.starting_time)
 				audio_begining = Input.get_integer_input()
-				# Cut audio to the length of the video
 				audio = audio.subclip(audio_begining, video.duration)
 				final = video.set_audio(audio)
 				print(HonerableMentions.save_vid_where)
@@ -228,9 +227,9 @@ class main_functions:
 		print(HonerableMentions.mp4)
 		filename = Input.get_string_input()
 		if filename in MySexyVariables.vid_list:
-			print(' Enter the final volume"')
+			print(' Enter the final volume.\n You can set vol_num to 0.5 for half.')
 			vol_num = Input.get_float_input()
-			print(' Enter the fade duration?')
+			print(' Enter the fade duration.\n You can set fade_duration to 5.0')
 			fade_duration = Input.get_float_input()
 			clip = VideoFileClip(filename)
 			clip = clip.volumex(vol_num)
