@@ -20,10 +20,11 @@ class HonerableMentions:
 	mp3 = " [bright_black]Please choose a mp3[/bright_black]"
 	starting_time = " [bright_black]start time?[/bright_black]"
 	ending_time = " [bright_black]End Time?[/bright_black]"
-	save_vid_where = " [bright_black]Save on Desktop videos or droid?[/bright_black]"
+	save_vid_where = " [bright_black]Save on Desktop Videos or droid?[/bright_black]"
 	save_audio_where = " [bright_black]Save on Desktop Music or droid?[/bright_black]"
 	old_filename = " [bright_black]Filename?[/bright_black]"
 	new_filename = " [bright_black]New filename?[/bright_black]"
+	exit_program = " [bright_black]Exiting the program...[/bright_black]"
 
 class MySexyVariables:
 	user = getpass.getuser()
@@ -110,7 +111,7 @@ class list_dirs:
 class main_functions:
 	def download_video():
 		def download_call():
-			print(' How would you like to download?')
+			print(' [bright_black]How would you like to download?[/bright_black]')
 			list_choice = ['mp3', 'best video', 'choose format']
 			tree = Tree("[bright_black]" + MySexyVariables.pics_dir, guide_style="purple")
 			for i in list_choice:
@@ -118,22 +119,23 @@ class main_functions:
 			print(" ", tree)
 			video_format = Input.get_string_input()
 			if video_format == 'mp3':
-				print(' Please enter a link')
+				print(' [bright_black]Please enter a link[/bright_black]')
 				url = Input.get_string_input()
 				mp3_command = f"yt-dlp -x --audio-format mp3 {url}"
 				os.system(mp3_command)
 			elif video_format == 'best video':
-				print(' Please enter a link')
+				print(' [bright_black]Please enter a link[/bright_black]')
 				url = Input.get_string_input()
 				best_video_command = f'yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]" {url}'
 				os.system(best_video_command)
 			elif video_format == 'choose format':
-				print(' Please enter a link')
+				print(' [bright_black]Please enter a link[/bright_black]')
 				url = Input.get_string_input()
 				format_command = f"yt-dlp -F {url}"
 				output = subprocess.check_output(format_command, shell=True).decode()
 				print(output)
-				format = input("Enter the format code: ")
+				print(' [bright_black]Enter the format code[bright_black]')
+				format = Input.get_integer_input()
 				format_code_command = f"yt-dlp -f {format} {url}"
 				os.system(format_code_command)
 			elif video_format == 'exit':
@@ -227,10 +229,22 @@ class main_functions:
 		print(HonerableMentions.mp4)
 		filename = Input.get_string_input()
 		if filename in MySexyVariables.vid_list:
-			print(' Enter the final volume.\n You can set vol_num to 0.5 for half.')
-			vol_num = Input.get_float_input()
-			print(' Enter the fade duration.\n You can set fade_duration to 5.0')
-			fade_duration = Input.get_float_input()
+			def get_float_input():
+			    user_input = Input.get_string_input()
+			    if user_input.lower() == 'exit':
+			        return -1
+			    else:
+			        return float(user_input)
+			print(' [bright_black]Enter the final volume.\n You can set vol_num to 0.5 for half\n Type \'exit\' to quit.[/bright_black]')
+			vol_num = get_float_input()
+			if vol_num == -1:
+			    print(HonerableMentions.exit_program)
+			    sys.exit()
+			print(' [bright_black]Enter the fade duration.\n You can set fade_duration to 5.0\n Type \'exit\' to quit.[/bright_black]')
+			fade_duration = get_float_input()
+			if fade_duration == -1:
+			    print(HonerableMentions.exit_program)
+			    sys.exit()
 			clip = VideoFileClip(filename)
 			clip = clip.volumex(vol_num)
 			clip = clip.audio_fadein(fade_duration)
@@ -377,7 +391,7 @@ class Main:
 				command = Input.get_string_input()
 				if command == MySexyVariables.calls_list[0]:
 					main_functions.download_video()
-					main_logo.logo()
+					main_logo.logo() 
 					os.system('clear')
 					Main.main()
 				elif command == MySexyVariables.calls_list[1]:
