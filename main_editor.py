@@ -391,42 +391,34 @@ class Main:
 				command = Input.get_string_input()
 				if command == MySexyVariables.calls_list[0]:
 					main_functions.download_video()
-					main_logo.logo() 
 					os.system('clear')
 					Main.main()
 				elif command == MySexyVariables.calls_list[1]:
 					main_functions.cut_vid()
-					main_logo.logo()
 					os.system('clear')
 					Main.main()
 				elif command == MySexyVariables.calls_list[2]:
 					main_functions.cut_mp3()
-					main_logo.logo()
 					os.system('clear')
 					Main.main()
 				elif command == MySexyVariables.calls_list[3]:
 					main_functions.volume_adjust()
-					main_logo.logo()
 					os.system('clear')
 					Main.main()
 				elif command == MySexyVariables.calls_list[4]:
 					main_functions.over_lay()
-					main_logo.logo()
 					os.system('clear')
 					Main.main()
 				elif command == MySexyVariables.calls_list[5]:
 					main_functions.ext_audio()
-					main_logo.logo()
 					os.system('clear')
 					Main.main()
 				elif command == MySexyVariables.calls_list[6]:
 					main_functions.concatenate_mp3()
-					main_logo.logo()
 					os.system('clear')
 					Main.main()
 				elif command == MySexyVariables.calls_list[7]:
 					main_functions.concatenate_videos()
-					main_logo.logo()
 					os.system('clear')
 					Main.main()
 				elif command == MySexyVariables.calls_list[8]:
