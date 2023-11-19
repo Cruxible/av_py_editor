@@ -1,7 +1,14 @@
+#!/usr/bin/env python3
+
+#Author: Ioannes Cruxibulum
+#Sep.10th 2023
+
+#pip3 install yt-dlp
 import platform
 import os
 import time
 import getpass
+import yt_dlp
 from rich.tree import Tree
 from rich import print
 from rich.console import Console
@@ -16,19 +23,17 @@ class main_logo:
 		print(" [red1]___  _   _ ____ ____\n |__]  \\_/  |__/ |__|\n |      |   |  \\ |  |[/red1]")
 
 class HonerableMentions:
-	mp4 = " [bright_black]Please choose a mp4[/bright_black]"
-	mp3 = " [bright_black]Please choose a mp3[/bright_black]"
-	starting_time = " [bright_black]start time?[/bright_black]"
-	ending_time = " [bright_black]End Time?[/bright_black]"
-	save_vid_where = " [bright_black]Save on Desktop Videos or droid?[/bright_black]"
-	save_audio_where = " [bright_black]Save on Desktop Music or droid?[/bright_black]"
-	old_filename = " [bright_black]Filename?[/bright_black]"
-	new_filename = " [bright_black]New filename?[/bright_black]"
-	exit_program = " [bright_black]Exiting the program...[/bright_black]"
+	mp4 = " [white]Please choose a mp4[/white]"
+	mp3 = " [white]Please choose a mp3[/white]"
+	starting_time = " [white]start time?[/white]"
+	ending_time = " [white]End Time?[/white]"
+	save_vid_where = " [white]Save on Desktop Videos or droid?[/white]"
+	save_audio_where = " [white]Save on Desktop Music or droid?[/white]"
+	old_filename = " [white]Filename?[/bright_black]"
+	new_filename = " [white]New filename?[/white]"
+	exit_program = " [white]Exiting the program...[/white]"
 
 class MySexyVariables:
-	user = getpass.getuser()
-	curdir = os.getcwd()
 	video_dir = os.path.join(os.path.expanduser("~"), "Videos")
 	audio_dir = os.path.join(os.path.expanduser("~"), "Music")
 	desktop_dir = os.path.join(os.path.expanduser("~"), "Desktop")
@@ -54,87 +59,93 @@ class MySexyVariables:
 class Input:
 	@staticmethod
 	def get_string_input():
+		user = getpass.getuser()
+		curdir = os.getcwd()
 		console = Console()
-		return console.input(" [bright_black]_______________________________________________[/bright_black]" + "[bright_black]\n  __ [/bright_black]" + "[red1]" + MySexyVariables.curdir + " [/red1]" + "[bright_black]\n (__[/bright_black]" + "[purple]" + MySexyVariables.user + "[/purple]" + "[bright_black]__: [/bright_black]")
-    
+		return console.input(" [white]_______________________________________________[/white]" + "[red]\n  __ [/red]" + "[white]" + curdir + " [/white]" + "[red]\n (__[/red]" + "[white]" + user + "[/white]" + "[red]__: [/red]")
+
 	@staticmethod
 	def get_integer_input():
+		user = getpass.getuser()
+		curdir = os.getcwd()
 		console = Console()
-		return int(console.input(" [bright_black]_______________________________________________[/bright_black]" + "[bright_black]\n  __ [/bright_black]" + "[red1]" + MySexyVariables.curdir + " [/red1]" + "[bright_black]\n (__[/bright_black]" + "[purple]" + MySexyVariables.user + "[/purple]" + "[bright_black]__: [/bright_black]"))
+		return int(console.input(" [white]_______________________________________________[/white]" + "[red]\n  __ [/red]" + "[white]" + curdir + " [/white]" + "[red]\n (__[/red]" + "[white]" + user + "[/white]" + "[red]__: [/red]"))
 
 	@staticmethod
 	def get_float_input():
+		user = getpass.getuser()
+		curdir = os.getcwd()
 		console = Console()
-		return float(console.input(" [bright_black]_______________________________________________[/bright_black]" + "[bright_black]\n  __ [/bright_black]" + "[red1]" + MySexyVariables.curdir + " [/red1]" + "[bright_black]\n (__[/bright_black]" + "[purple]" + MySexyVariables.user + "[/purple]" + "[bright_black]__: [/bright_black]"))
+		return float(console.input(" [white]_______________________________________________[/white]" + "[red]\n  __ [/red]" + "[white]" + curdir + " [/white]" + "[red]\n (__[/red]" + "[white]" + user + "[/white]" + "[red]__: [/red]"))
 
 class calls:
 	@staticmethod
 	def call_list():
-		tree = Tree("[purple]" + " Editing Tools", guide_style= "purple")
+		tree = Tree("[white]" + " Editing Tools", guide_style= "red")
 		for i in MySexyVariables.calls_list:
-			tree.add("[bright_black]" + str(i))
+			tree.add("[white]" + str(i))
 		print(" ", tree)
 
 class list_dirs:
 	@staticmethod
 	def vid_list():
 		os.chdir(MySexyVariables.video_dir)
-		tree = Tree("[bright_black]" + MySexyVariables.video_dir, guide_style="purple")
+		tree = Tree("[white]" + MySexyVariables.video_dir, guide_style="red")
 		for i in MySexyVariables.vid_list:
-			tree.add("[bright_black]" + str(i))
+			tree.add("[white]" + str(i))
 		print(" ", tree)
 
 	@staticmethod
 	def music_list():
 		os.chdir(MySexyVariables.audio_dir)
-		tree = Tree("[bright_black]" + MySexyVariables.audio_dir, guide_style="purple")
+		tree = Tree("[white]" + MySexyVariables.audio_dir, guide_style="red")
 		for i in MySexyVariables.audio_list:
-			tree.add("[bright_black]" + str(i))
+			tree.add("[white]" + str(i))
 		print(" ", tree)
 
 	@staticmethod
 	def desktop_list():
 		os.chdir(MySexyVariables.desktop_dir)
-		tree = Tree("[bright_black]" + MySexyVariables.desktop_dir, guide_style="purple")
+		tree = Tree("[white]" + MySexyVariables.desktop_dir, guide_style="red")
 		for i in MySexyVariables.desktop_list:
-			tree.add("[bright_black]" + str(i))
+			tree.add("[white]" + str(i))
 		print(" ", tree)
 
 	@staticmethod
 	def picture_list():
 		os.chdir(MySexyVariables.pics_dir)
-		tree = Tree("[bright_black]" + MySexyVariables.pics_dir, guide_style="purple")
+		tree = Tree("[white]" + MySexyVariables.pics_dir, guide_style="red")
 		for i in MySexyVariables.pics_list:
-			tree.add("[bright_black]" + str(i))
+			tree.add("[white]" + str(i))
 		print(" ", tree)
 
 class main_functions:
 	def download_video():
 		def download_call():
-			print(' [bright_black]How would you like to download?[/bright_black]')
+			print(' [white]How would you like to download?[/white]')
 			list_choice = ['mp3', 'best video', 'choose format']
-			tree = Tree("[bright_black]" + MySexyVariables.pics_dir, guide_style="purple")
+			tree = Tree("[white]" + MySexyVariables.pics_dir, guide_style="red")
 			for i in list_choice:
-				tree.add("[bright_black]" + str(i))
+				tree.add("[white]" + str(i))
 			print(" ", tree)
 			video_format = Input.get_string_input()
 			if video_format == 'mp3':
-				print(' [bright_black]Please enter a link[/bright_black]')
+				print(' [white]Please enter a link[/white]')
 				url = Input.get_string_input()
 				mp3_command = f"yt-dlp -x --audio-format mp3 {url}"
 				os.system(mp3_command)
 			elif video_format == 'best video':
-				print(' [bright_black]Please enter a link[/bright_black]')
+				print(' [white]Please enter a link[/white]')
 				url = Input.get_string_input()
-				best_video_command = f'yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]" {url}'
+				best_video_command = f'yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]" -o video.mp4 "{url}"'
 				os.system(best_video_command)
 			elif video_format == 'choose format':
-				print(' [bright_black]Please enter a link[/bright_black]')
+				print(' [white]Please enter a link[/white]')
 				url = Input.get_string_input()
 				format_command = f"yt-dlp -F {url}"
 				output = subprocess.check_output(format_command, shell=True).decode()
 				print(output)
-				print(' [bright_black]Enter the format code[bright_black]')
+				print(' [white]Enter the format code.\n code 22 or 18 is common.[/white]')
 				format = Input.get_integer_input()
 				format_code_command = f"yt-dlp -f {format} {url}"
 				os.system(format_code_command)
@@ -152,9 +163,9 @@ class main_functions:
 		elif directory == 'droid':
 			os.chdir(MySexyVariables.sd_video_dir)
 			download_call()
-		elif "exit" == directory:
+		elif directory == MySexyVariables.calls_list[6]:
 			sys.exit()
-		
+
 
 	def over_lay():
 		list_dirs.vid_list()
@@ -188,11 +199,11 @@ class main_functions:
 					print(HonerableMentions.new_filename)
 					new_file = Input.get_string_input()
 					final.write_videofile(f"{new_file}")
-				elif "exit" == directory:
+				elif directory == MySexyVariables.calls_list[6]:
 					sys.exit()
-			if "exit" == audio_file:
+			if audio_file == MySexyVariables.calls_list[6]:
 				sys.exit()
-		if "exit" == video_file:
+		if video_file == MySexyVariables.calls_list[6]:
 			sys.exit()
 
 	def cut_mp3():
@@ -219,9 +230,9 @@ class main_functions:
 			elif directory == 'droid':
 				os.chdir(MySexyVariables.sd_Music_dir)
 				new_audio.write_audiofile(output_file_path)
-			elif "exit" == directory:
+			elif directory == MySexyVariables.calls_list[6]:
 				sys.exit()
-		if "exit" == filename:
+		if filename == MySexyVariables.calls_list[6]:
 			sys.exit()
 
 	def volume_adjust():
@@ -235,12 +246,12 @@ class main_functions:
 			        return -1
 			    else:
 			        return float(user_input)
-			print(' [bright_black]Enter the final volume.\n You can set vol_num to 0.5 for half\n Type \'exit\' to quit.[/bright_black]')
+			print(' [white]Enter the final volume.\n You can set vol_num to 0.5 for half\n Type \'exit\' to quit.[/white]')
 			vol_num = get_float_input()
 			if vol_num == -1:
 			    print(HonerableMentions.exit_program)
 			    sys.exit()
-			print(' [bright_black]Enter the fade duration.\n You can set fade_duration to 5.0\n Type \'exit\' to quit.[/bright_black]')
+			print(' [white]Enter the fade duration.\n You can set fade_duration to 5.0\n Type \'exit\' to quit.[/white]')
 			fade_duration = get_float_input()
 			if fade_duration == -1:
 			    print(HonerableMentions.exit_program)
@@ -262,11 +273,11 @@ class main_functions:
 			elif directory == 'droid':
 				os.chdir(MySexyVariables.sd_video_dir)
 				clip.write_videofile(new_file)
-			elif "exit" == directory:
+			elif directory == MySexyVariables.calls_list[6]:
 				sys.exit()
-		if "exit" == filename:
+		if filename == MySexyVariables.calls_list[6]:
 			sys.exit()
-    
+
 	def cut_vid():
 		list_dirs.vid_list()
 		print(HonerableMentions.mp4)
@@ -290,9 +301,9 @@ class main_functions:
 			elif directory == 'droid':
 				os.chdir(MySexyVariables.sd_video_dir)
 				clip.write_videofile(new_vid_name)
-			elif "exit" == directory:
+			elif directory == MySexyVariables.calls_list[6]:
 				sys.exit()
-		if "exit" == vid_name:
+		if vid_name == MySexyVariables.calls_list[6]:
 			sys.exit()
 
 	def ext_audio():
@@ -315,11 +326,11 @@ class main_functions:
 			elif directory == 'droid':
 				os.chdir(MySexyVariables.sd_Music_dir)
 				audio.write_audiofile(new_filename)
-			elif "exit" == directory:
+			elif directory == MySexyVariables.calls_list[6]:
 				sys.exit()
-		if "exit" == filename:
+		if filename == MySexyVariables.calls_list[6]:
 			sys.exit()
-    
+
 	def concatenate_mp3():
 		list_dirs.music_list()
 		print(HonerableMentions.mp3)
@@ -343,13 +354,13 @@ class main_functions:
 				elif directory == 'droid':
 					os.chdir(MySexyVariables.sd_Music_dir)
 					final_audio.write_audiofile(new_file)
-				elif "exit" == directory:
+				elif directory == MySexyVariables.calls_list[6]:
 					sys.exit()
-			if "exit" == second_file:
+			if second_file == MySexyVariables.calls_list[6]:
 				sys.exit()
-		if "exit" == first_file:
+		if first_file == MySexyVariables.calls_list[6]:
 			sys.exit()
-    
+
 	def concatenate_videos():
 		list_dirs.vid_list()
 		print(HonerableMentions.mp4)
@@ -374,11 +385,11 @@ class main_functions:
 				elif directory == 'droid':
 					os.chdir(MySexyVariables.sd_video_dir)
 					final_video.write_videofile(new_file)
-				elif "exit" == directory:
+				elif directory == MySexyVariables.calls_list[6]:
 					sys.exit()
-			if "exit" == second_file:
+			if second_file == MySexyVariables.calls_list[6]:
 				sys.exit()
-		if "exit" == first_file:
+		if first_file == MySexyVariables.calls_list[6]:
 			sys.exit()
 
 class Main:
@@ -429,15 +440,16 @@ class Main:
 					list_dirs.desktop_list()
 					list_dirs.picture_list()
 					os.system('clear')
-					Main.main()	
+					Main.main()
 				else:
 					continue
 		else:
 			print(' I use sparky linux btw.')
 
 if __name__ == '__main__':
-	print(f" [purple]System: {platform.system()}\n Node Name: {platform.node()}\n Release: {platform.release()}[/purple]")
-	print(f" [purple]Version: {platform.version()}\n Machine: {platform.machine()}\n Python version: {platform.python_version()}[purple]")
+	print(f" [white]System: {platform.system()}\n Node Name: {platform.node()}\n Release: {platform.release()}[/white]")
+	print(f" [white]Version: {platform.version()}\n Machine: {platform.machine()}\n Python version: {platform.python_version()}/white]")
 	print(" [red1]All that we see or seem is but a dream within a dream\n ~ Edgar Allen Poe[/red1]")
 	if platform.system() == 'Linux':
 		Main.main()
+
