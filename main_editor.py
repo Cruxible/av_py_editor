@@ -140,15 +140,15 @@ class main_functions:
 				best_video_command = f'yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]" -o video.mp4 "{url}"'
 				os.system(best_video_command)
 			elif video_format == 'choose format':
-				print(' [white]Please enter a link[/white]')
-				url = Input.get_string_input()
-				format_command = f"yt-dlp -F {url}"
-				output = subprocess.check_output(format_command, shell=True).decode()
-				print(output)
-				print(' [white]Enter the format code.\n code 22 or 18 is common.[/white]')
-				format = Input.get_integer_input()
-				format_code_command = f"yt-dlp -f {format} {url}"
-				os.system(format_code_command)
+			    print(' [white]Please enter a link[/white]')
+			    url = Input.get_string_input()
+			    format_command = f"yt-dlp -F {url}"
+			    output = subprocess.check_output(format_command, shell=True).decode()
+			    print(output)
+			    print(' [white]Enter the format code.\n code 22 or 18 is common.[/white]')
+			    format = Input.get_integer_input()
+			    format_code_command = f"yt-dlp -f {format} {url}"
+			    subprocess.call(format_code_command, shell=True)
 			elif video_format == 'exit':
 				sys.exit()
 
