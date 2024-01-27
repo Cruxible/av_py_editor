@@ -3,12 +3,11 @@
 #Author: Ioannes Cruxibulum
 #Sep.10th 2023
 
-#pip3 install yt-dlp
+#sudo apt install yt-dlp
 import platform
 import os
 import time
 import getpass
-import yt_dlp
 from rich.tree import Tree
 from rich import print
 from rich.console import Console
@@ -20,7 +19,7 @@ import subprocess
 
 class main_logo:
 	def logo():
-		print(" [red1]___  _   _ ____ ____\n |__]  \\_/  |__/ |__|\n |      |   |  \\ |  |[/red1]")
+		print(" [red1] ██▓███ ▓██   ██▓ ██▀███   ▄▄▄      \n▓██░  ██▒▒██  ██▒▓██ ▒ ██▒▒████▄    \n▓██░ ██▓▒ ▒██ ██░▓██ ░▄█ ▒▒██  ▀█▄  \n▒██▄█▓▒ ▒ ░ ▐██▓░▒██▀▀█▄  ░██▄▄▄▄██ \n▒██▒ ░  ░ ░ ██▒▓░░██▓ ▒██▒ ▓█   ▓██▒\n▒▓▒░ ░  ░  ██▒▒▒ ░ ▒▓ ░▒▓░ ▒▒   ▓▒█░\n░▒ ░     ▓██ ░▒░   ░▒ ░ ▒░  ▒   ▒▒ ░\n░░       ▒ ▒ ░░    ░░   ░   ░   ▒   \n         ░ ░        ░           ░  ░\n         ░ ░                        [/red1]")
 
 class HonerableMentions:
 	mp4 = " [white]Please choose a mp4[/white]"
@@ -448,8 +447,7 @@ class Main:
 
 if __name__ == '__main__':
 	print(f" [white]System: {platform.system()}\n Node Name: {platform.node()}\n Release: {platform.release()}[/white]")
-	print(f" [white]Version: {platform.version()}\n Machine: {platform.machine()}\n Python version: {platform.python_version()}/white]")
+	print(f" [white]Version: {platform.version()}\n Machine: {platform.machine()}\n Python version: {platform.python_version()}[/white]")
 	print(" [red1]All that we see or seem is but a dream within a dream\n ~ Edgar Allen Poe[/red1]")
 	if platform.system() == 'Linux':
 		Main.main()
-
